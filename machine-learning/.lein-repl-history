@@ -1,0 +1,4 @@
+ (use '(incanter core datasets))
+  (def iris (get-dataset :iris))
+  (view iris)
+quit
