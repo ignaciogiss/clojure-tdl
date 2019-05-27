@@ -2,3 +2,21 @@
   (def iris (get-dataset :iris))
   (view iris)
 quit
+(use '(lambda-ml core))
+(use '(lambda-ml nearest-neighbors))
+(use '(lambda-ml distance))
+(use '(ultra-csv core))
+(defn fit
+  [data k]
+  (->(make-nearest-neighbors-regressor k lambda-ml.distance/euclidean)
+     (nearest-neighbors-fit data)))
+(def data-test (array-map [:a 2 :b 3] [:a 5 :b 4] [:a 9 :b 6] [:a 4 :b 7] [:a 8 :b 1] [:a 7 :b 2])
+data-test
+)
+(def data-test (array-map [:a 2 :b 3] [:a 5 :b 4] [:a 9 :b 6] [:a 4 :b 7] [:a 8 :b 1] [:a 7 :b 2]))
+data-test
+(nearest-neighbors-predict (fit data-test 1) (map butlast data-test)
+)
+(nearest-neighbors-predict (fit data-test 1) (map butlast data-test))
+(map butlast data-test)
+data-test
