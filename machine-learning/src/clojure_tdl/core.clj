@@ -39,9 +39,45 @@
   (def iris (get-dataset :iris))
   (to-vect (to-matrix iris)))
 
+;; Ejemplo de juguete
+(defn obtener-lista-basico
+  [i lista]
+  (when (< i 5)  
+    (println i)
+    (obtener-lista-basico (inc i) (conj lista i)))
+  lista)
+
+;; Ejemplo de juguete
+(defn obtener-lista
+  ([i lista]
+   (if (< i 5)  
+     (do (println i) 
+         (obtener-lista (inc i) (conj lista i)))
+     (do lista)))
+  ([]
+   (obtener-lista 0 nil)))
+
+;;Devuelve un array de la forma
+;; ( (prediccion-modelo-1-flor1, prediccion-modelo-1-flor-2 ...)
+;;   (prediccion-modelo-2-flor1, prediccion-modelo2-flor2 ...) ...)
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (cons(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    lista-predicciones))
+  ([lista-modelos flores]
+   (predecir-con-modelos lista-modelos flores nil)))
+
 (defn -main
   [& args]
   (def iris-vec (obtener-iris-data-como-vector))
   (def modelos (crear-modelos-secuencialmente iris-vec))
-  (def predictions (nearest-neighbors-predict (first modelos) (map butlast iris-vec)))
+  (def flores-para-predecir (map butlast iris-vec))
+  (def predictions (nearest-neighbors-predict (first modelos) flores-para-predecir))
   (view (seq predictions)))
