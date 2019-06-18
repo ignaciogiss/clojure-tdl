@@ -4,7 +4,6 @@
 (use '(lambda-ml core))
 (use '(lambda-ml nearest-neighbors))
 (use '(lambda-ml distance))
-(use '(ultra-csv core))
 (use '(incanter core datasets))
 
 (defn fit
