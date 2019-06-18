@@ -49,24 +49,6 @@
   (def iris (get-dataset :iris))
   (to-vect (to-matrix iris)))
 
-;; Ejemplo de juguete
-(defn obtener-lista-basico
-  [i lista]
-  (when (< i 5)  
-    (println i)
-    (obtener-lista-basico (inc i) (conj lista i)))
-  lista)
-
-;; Ejemplo de juguete
-(defn obtener-lista
-  ([i lista]
-   (if (< i 5)  
-     (do (println i) 
-         (obtener-lista (inc i) (conj lista i)))
-     (do lista)))
-  ([]
-   (obtener-lista 0 nil)))
-
 ;;Devuelve un array de la forma
 ;; ( (prediccion-modelo-1-flor1, prediccion-modelo-1-flor-2 ...)
 ;;   (prediccion-modelo-2-flor1, prediccion-modelo2-flor2 ...) ...)
