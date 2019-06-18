@@ -2,6 +2,6 @@
   (:require [clojure.test :refer :all]
             [clojure-tdl.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest iris-as-vector-size-test
+  (testing "Iris dataset as vector has 150 elements"
+    (is (= (count (obtener-iris-data-como-vector)) 150))))
