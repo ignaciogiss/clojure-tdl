@@ -53,17 +53,12 @@
 ;; ( (prediccion-modelo-1-flor1, prediccion-modelo-1-flor-2 ...)
 ;;   (prediccion-modelo-2-flor1, prediccion-modelo2-flor2 ...) ...)
 (defn predecir-con-modelos
-  ([lista-modelos flores lista-predicciones]
-   (if-not (empty? lista-modelos) 
-     (predecir-con-modelos
-       (rest lista-modelos)
-       flores
-       (cons(nearest-neighbors-predict (first lista-modelos) flores)
-         lista-predicciones))
-     ;;else
-     lista-predicciones))
   ([lista-modelos flores]
-   (predecir-con-modelos lista-modelos flores nil)))
+   (if-not (empty? lista-modelos) 
+     (cons 
+       (nearest-neighbors-predict (first lista-modelos) flores)
+       (predecir-con-modelos (rest lista-modelos) flores))
+     nil)))
 
 (defn -main
   [& args]
