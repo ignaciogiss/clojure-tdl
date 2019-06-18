@@ -46,8 +46,12 @@
 
 (defn obtener-iris-data-como-vector
   []
-  (def iris (get-dataset :iris))
-  (to-vect (to-matrix iris)))
+  (->(get-dataset :iris)
+     (to-matrix)
+     (to-vect)))
+;;Es lo mismo que 
+;; (to-vect (to-matrix (get-dataset :iris)))
+  
 
 ;;Devuelve un array de la forma
 ;; ( (prediccion-modelo-1-flor1, prediccion-modelo-1-flor-2 ...)
