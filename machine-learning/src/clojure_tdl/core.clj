@@ -66,8 +66,8 @@
    (predecir-con-modelos lista-modelos flores nil)))
 
 (defn -main
-  [& args
-   (def iris-vec (obtener-iris-data-como-vector))]
+  [& args]
+  (def iris-vec (obtener-iris-data-como-vector))
   (def modelos (crear-modelos-secuencialmente iris-vec))
   (def flores-para-predecir (take-last 3 (map butlast iris-vec)))
   (def predictions (predecir-con-modelos modelos flores-para-predecir))
