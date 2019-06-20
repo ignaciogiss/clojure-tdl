@@ -1,0 +1,297 @@
+ (use '(incanter core datasets))
+  (def iris (get-dataset :iris))
+  (view iris)
+quit
+(use '(lambda-ml core))
+(use '(lambda-ml nearest-neighbors))
+(use '(lambda-ml distance))
+(use '(ultra-csv core))
+(defn fit
+  [data k]
+  (->(make-nearest-neighbors-regressor k lambda-ml.distance/euclidean)
+     (nearest-neighbors-fit data)))
+(def data-test (array-map [:a 2 :b 3] [:a 5 :b 4] [:a 9 :b 6] [:a 4 :b 7] [:a 8 :b 1] [:a 7 :b 2])
+data-test
+)
+(def data-test (array-map [:a 2 :b 3] [:a 5 :b 4] [:a 9 :b 6] [:a 4 :b 7] [:a 8 :b 1] [:a 7 :b 2]))
+data-test
+(nearest-neighbors-predict (fit data-test 1) (map butlast data-test)
+)
+(nearest-neighbors-predict (fit data-test 1) (map butlast data-test))
+(map butlast data-test)
+data-test
+(use '(lambda-ml core))
+(use '(lambda-ml nearest-neighbors))
+(use '(lambda-ml distance))
+(use '(ultra-csv core))
+(use '(incanter core datasets))
+(defn fit
+  [data k]
+  (->(make-nearest-neighbors-regressor k lambda-ml.distance/euclidean)
+     (nearest-neighbors-fit data)))
+(defn crear-modelos-secuencialmente
+     [data]
+  (let
+     [modelo1 (fit data 1)
+      modelo2 (fit data 2)
+      modelo3 (fit data 3)
+      modelo4 (fit data 4)
+      modelo5 (fit data 5)]
+    into-array[modelo1 modelo2 modelo3 modelo4 modelo5]))
+(defn crear-modelos-concurrentemente
+    [data]
+  (let
+     [modelo1 (future(fit data 1))
+      modelo2 (future(fit data 2))
+      modelo3 (future(fit data 3))
+      modelo4 (future(fit data 4))
+      modelo5 (future(fit data 5))]
+    into-array[@modelo1 @modelo2 @modelo3 @modelo4 @modelo5]))
+  
+(defn obtener-iris-data-como-vector
+  []
+  (def iris (get-dataset :iris))
+  (to-vect (to-matrix iris)))
+;; Ejemplo de juguete
+(defn obtener-lista-basico
+  [i lista]
+  (when (< i 5)  
+    (println i)
+    (obtener-lista-basico (inc i) (conj lista i)))
+  lista)
+;; Ejemplo de juguete
+(defn obtener-lista
+  ([i lista]
+   (if (< i 5)  
+     (do (println i) 
+         (obtener-lista (inc i) (conj lista i)))
+     (do lista)))
+  ([]
+   (obtener-lista 0 nil)))
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (conj(nearest-neighbors-predict (first modelos) flores-para-predecir)
+         lista-predicciones))
+    ;;else
+    lista-predicciones)))
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (conj(nearest-neighbors-predict (first lista-modelos) flores-para-predecir)
+         lista-predicciones))
+    ;;else
+    lista-predicciones)))
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (conj(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    lista-predicciones)))
+  (def iris-vec (obtener-iris-data-como-vector))
+  (def modelos (crear-modelos-secuencialmente iris-vec))
+  (def flores-para-predecir (map butlast iris-vec))
+(predecir-con-modelos modelos flores-para-predecir nil)
+(length (predecir-con-modelos modelos flores-para-predecir nil))
+flores-para-predecir
+(def flores-test (take 3 flores-para-predecir))
+flores-test
+(length (predecir-con-modelos modelos flores-test nil))
+(predecir-con-modelos modelos flores-test nil)
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (conj(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    1)))
+(predecir-con-modelos modelos flores-test nil)
+(def flores-test (take 2 flores-para-predecir))
+(predecir-con-modelos modelos flores-test nil)
+(length modelos)
+(def flores-test (take 1 flores-para-predecir))
+(predecir-con-modelos modelos flores-test nil)
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (conj(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    lista-predicciones)))
+(predecir-con-modelos modelos flores-test nil)
+(flatten (predecir-con-modelos modelos flores-test nil))
+(def x (flatten (predecir-con-modelos modelos flores-test nil)))
+x
+(def x (predecir-con-modelos modelos flores-test nil))
+x
+(frist x)
+(first x)
+(last x)
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (concat(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    lista-predicciones)))
+(def x (predecir-con-modelos modelos flores-test nil))
+x
+(def flores-test (take 3 flores-para-predecir))
+(def x (predecir-con-modelos modelos flores-test nil))
+x
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (cons(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    lista-predicciones)))
+(def x (predecir-con-modelos modelos flores-test nil))
+x
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (println (first lista-predicciones))
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (cons(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+    ;;else
+    lista-predicciones))
+  ([lista-modelos flores]
+   (predecir-con-modelos lista-modelos flores nil)))
+(def x (predecir-con-modelos modelos flores-test))
+x
+(type x)
+(type (first x))
+(ns clojure-tdl.core
+  (:gen-class))
+(use '(lambda-ml core))
+(use '(lambda-ml nearest-neighbors))
+(use '(lambda-ml distance))
+(use '(ultra-csv core))
+(use '(incanter core datasets))
+(defn fit
+  [data k]
+  (->(make-nearest-neighbors-regressor k lambda-ml.distance/euclidean)
+     (nearest-neighbors-fit data)))
+(defn crear-modelos-secuencialmente
+     [data]
+  (let
+     [modelo1 (fit data 1)
+      modelo2 (fit data 2)
+      modelo3 (fit data 3)
+      modelo4 (fit data 4)
+      modelo5 (fit data 5)]
+    into-array[modelo1 modelo2 modelo3 modelo4 modelo5]))
+(defn crear-modelos-concurrentemente
+    [data]
+  (let
+     [modelo1 (future(fit data 1))
+      modelo2 (future(fit data 2))
+      modelo3 (future(fit data 3))
+      modelo4 (future(fit data 4))
+      modelo5 (future(fit data 5))]
+    into-array[@modelo1 @modelo2 @modelo3 @modelo4 @modelo5]))
+  
+(defn obtener-iris-data-como-vector
+  []
+  (def iris (get-dataset :iris))
+  (to-vect (to-matrix iris)))
+;; Ejemplo de juguete
+(defn obtener-lista-basico
+  [i lista]
+  (when (< i 5)  
+    (println i)
+    (obtener-lista-basico (inc i) (conj lista i)))
+  lista)
+;; Ejemplo de juguete
+(defn obtener-lista
+  ([i lista]
+   (if (< i 5)  
+     (do (println i) 
+         (obtener-lista (inc i) (conj lista i)))
+     (do lista)))
+  ([]
+   (obtener-lista 0 nil)))
+;;Devuelve un array de la forma
+;; ( (prediccion-modelo-1-flor1, prediccion-modelo-1-flor-2 ...)
+;;   (prediccion-modelo-2-flor1, prediccion-modelo2-flor2 ...) ...)
+(defn predecir-con-modelos
+  ([lista-modelos flores lista-predicciones]
+   (if-not (empty? lista-modelos) 
+     (predecir-con-modelos
+       (rest lista-modelos)
+       flores
+       (cons(nearest-neighbors-predict (first lista-modelos) flores)
+         lista-predicciones))
+     ;;else
+     lista-predicciones))
+  ([lista-modelos flores]
+   (predecir-con-modelos lista-modelos flores nil)))
+(def iris-vec (obtener-iris-data-como-vector))
+(time (crear-modelos-secuencialmente iris-vec))
+(time (crear-modelos-concurrentemente iris-vec))
+(time (crear-modelos-secuencialmente iris-vec))
+(defn crear-modelos-secuencialmente
+     [data]
+  (let
+     [modelo1 (fit data 1)
+      modelo2 (fit data 2)
+      modelo3 (fit data 3)
+      modelo4 (fit data 4)
+      modelo5 (fit data 5)
+      modelo6 (fit data 6)
+      modelo7 (fit data 7)
+      modelo8 (fit data 8)
+      modelo9 (fit data 9)
+      modelo10 (fit data 10)]
+    into-array[modelo1 modelo2 modelo3 modelo4 modelo5]))
+(defn crear-modelos-concurrentemente
+    [data]
+  (let
+     [modelo1 (future(fit data 1))
+      modelo2 (future(fit data 2))
+      modelo3 (future(fit data 3))
+      modelo4 (future(fit data 4))
+      modelo5 (future(fit data 5))
+      modelo6 (future(fit data 6))
+      modelo7 (future(fit data 7))
+      modelo8 (future(fit data 8))
+      modelo9 (future(fit data 9))
+      modelo10 (future(fit data 10))]
+    into-array[@modelo1 @modelo2 @modelo3 @modelo4 @modelo5]))
+(time (crear-modelos-secuencialmente iris-vec))
+(time (crear-modelos-concurrentemente iris-vec))
+(time (crear-modelos-secuencialmente iris-vec))
+(time (crear-modelos-concurrentemente iris-vec))
