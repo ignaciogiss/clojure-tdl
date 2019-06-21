@@ -24,7 +24,6 @@
   (def futureE (future-intensive-calculation 100))
   (def all-futures (seq[futureA futureB futureC futureD futureE]))
   (def calculation-with-futures (promise))
-  (calculation-with-future)
   (Thread/sleep 5000)
   (doseq [x all-futures]  
     (println @x)))
