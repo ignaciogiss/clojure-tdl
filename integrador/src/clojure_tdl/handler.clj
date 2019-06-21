@@ -1,7 +1,8 @@
 (ns clojure-tdl.handler
   (:require [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
-            [schema.core :as s]))
+            [schema.core :as s]
+            [clojure-tdl.core :refer :all]))
 
 (s/defschema Pizza
   {:name s/Str
@@ -22,14 +23,20 @@
     (context "/api" []
       :tags ["api"]
 
-      (GET "/plus" []
-        :return {:result Long}
-        :query-params [x :- Long, y :- Long]
-        :summary "adds two numbers together"
-        (ok {:result (+ x y)}))
-
-      (POST "/echo" []
-        :return Pizza
-        :body [pizza Pizza]
-        :summary "echoes a Pizza"
-        (ok pizza)))))
+      (GET "/adivinar-flor" []
+        :return {:result String}
+        :query-params [largo-sepalo :- Double, ancho-sepalo :- Double,
+                       largo-petalo :- Double, ancho-petalo :- Double]
+        :summary "Adivina el tipo de flor"
+        (ok {:result (do
+                       (def modelos
+                        (-> (obtener-iris-data-como-vector)
+                            (crear-modelos-secuencialmente)))
+                       (def flores-a-predecir
+                         [[largo-sepalo, ancho-sepalo,largo-petalo, ancho-petalo]])
+                       (def predicciones 
+                         (seleccionar-prediccion-mas-frecuente
+                           (predecir-con-modelos modelos flores-a-predecir)))
+                       (def predicciones-texto (numero-a-flor predicciones))
+                       (first predicciones-texto))})))))
+                       

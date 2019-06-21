@@ -1,5 +1,4 @@
-(ns clojure-tdl.core
-  (:gen-class))
+(ns ml)
 
 (use '(lambda-ml core))
 (use '(lambda-ml nearest-neighbors))
@@ -32,13 +31,13 @@
   (let
      [modelo1 (future(fit data 1))
       modelo2 (future(fit data 2))
-      modelo3 (future(fit data 3))
-      modelo4 (future(fit data 4))
-      modelo5 (future(fit data 5))
-      modelo6 (future(fit data 6))
-      modelo7 (future(fit data 7))
-      modelo8 (future(fit data 8))
-      modelo9 (future(fit data 9))
+            modelo3 (future(fit data 3))
+           modelo4 (future(fit data 4))
+            modelo5 (future(fit data 5))
+            modelo6 (future(fit data 6))
+            modelo7 (future(fit data 7))
+            modelo8 (future(fit data 8))
+            modelo9 (future(fit data 9))
       modelo10 (future(fit data 10))]
     into-array[@modelo1 @modelo2 @modelo3 @modelo4 @modelo5]))
   
@@ -94,11 +93,3 @@
 
 (defn numero-a-flor [array]
   (map {0.0 "virginica" 1.0 "versicolor" 2.0 "setosa"} array))
-
-;;(defn -main
-;;  [& args]
-;;  (def iris-vec (obtener-iris-data-como-vector))
-;;  (def modelos (crear-modelos-secuencialmente iris-vec))
-;;  (def flores-para-predecir (take 150 (map butlast iris-vec)))
-;;  (def predictions (predecir-con-modelos modelos flores-para-predecir))
-;;  (println (numero-a-flor(seleccionar-prediccion-mas-frecuente predictions))))

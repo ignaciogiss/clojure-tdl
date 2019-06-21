@@ -1,0 +1,27 @@
+(ns clojure-tdl.handler
+  (:require [compojure.api.sweet :refer :all]
+            [ring.util.http-response :refer :all]
+            [schema.core :as s]
+            [core :refer :all]))
+require 'core
+quit
+(ns clojure-tdl.handler
+  (:require [compojure.api.sweet :refer :all]
+            [ring.util.http-response :refer :all]
+            [schema.core :as s]
+            [clojure_tdl.core :refer :all]))
+(use core.clj)
+(use core)
+(ns clojure-tdl.handler
+  (:require [compojure.api.sweet :refer :all]
+            [ring.util.http-response :refer :all]
+            [schema.core :as s]
+            [clojure_tdl.core :refer :all]))
+(ns clojure-tdl.handler
+  (:require [compojure.api.sweet :refer :all]
+            [ring.util.http-response :refer :all]
+            [schema.core :as s]
+            [clojure_tdl.core :as hola]))
+quit
+[clojure-tdl.greeter :refer :all]
+quit
