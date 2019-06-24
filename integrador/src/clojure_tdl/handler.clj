@@ -16,9 +16,9 @@
     {:swagger
      {:ui "/"
       :spec "/swagger.json"
-      :data {:info {:title "Unaapi"
-                    :description "Compojure Api example"}
-             :tags [{:name "api", :description "some apis"}]}}}
+      :data {:info {:title "Api TP Integrador"
+                    :description "Compojure Api para TP Integrador"}
+             :tags [{:name "Api Iris"}]}}}
 
     (context "/api" []
       :tags ["api"]
