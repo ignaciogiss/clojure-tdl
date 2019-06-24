@@ -8,7 +8,7 @@
 
 (defn fit
   [data k]
-  (->(make-nearest-neighbors-regressor k lambda-ml.distance/euclidean)
+  (->(make-nearest-neighbors-classifier k lambda-ml.distance/euclidean)
      (nearest-neighbors-fit data)))
 
 
