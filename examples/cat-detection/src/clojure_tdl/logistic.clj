@@ -6,7 +6,15 @@
 (defn logistic-class [x]
   (if (>= x 0.5) 1 0))
 
-(defn sigmoid-function [coefs]
+(defn sigmoid-function [x]
+  (map (fn [x] (/ 1 x)) (map inc (i/exp (map - x)))))
+
+(defn sigmoid-function3 [x]
+  (apply / 1
+    (apply + 1
+      (apply i/exp (apply - x)))))
+
+(defn sigmoid-functioni2 [coefs]
   (let [bt (i/trans coefs)
         z  (fn [x] (- (first (i/mmult bt x))))]
     (fn [x]
