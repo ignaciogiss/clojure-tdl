@@ -6,7 +6,7 @@
   )
 (defonce state (reagent/atom #{[-1 0] [-1 1] [0 -1] [0 0] [1 0]}))
 
-;; Dado un par [x y], devuelve la collecion de vecinos en cada direccion
+;; Dado un par [x y], devuelve la coleccion de vecinos en cada direccion
 (defn neighbors
   [[x y]]
   (for [dx [-1 0 1]
